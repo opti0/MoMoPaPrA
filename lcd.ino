@@ -28,32 +28,72 @@ void smooth_brightness(){
   analogWrite(22, (analogRead(ADC)/16)-1); 
 }
 
+float voltage_measure(){
+  float voltage;
+  //here will be some code to measure voltage
+  voltage = 12.34;
+  return voltage;
+  }
+  
+float current_measure(){
+  float current;
+  //here will be some code to measure current
+  current = 15.28;
+  return current;
+  }
 
-void setup() {
-  //ustawienie pinu 22 jako wyjscie żeby sterować jasnością ekranu
-  pinMode(22, OUTPUT); 
-  // put your setup code here, to run once:
-  lcd.begin(16, 2);
-  lcd.setCursor(5, 0);
-  lcd.print("18650");
-  lcd.setCursor(0, 1);
-  lcd.print("capacity tester");
-  delay(2500);
+void measurements_display(){
   lcd.clear();
-  lcd.setCursor(1, 0);
-  lcd.print("Maciej Radecki");
-  lcd.setCursor(6, 1);
-  lcd.print("2022");
-   delay(2500);
+  float power;
+  float voltage =  voltage_measure();
+  float current = current_measure();
+  power = voltage * current;
+  lcd.setCursor(1,0);
+  lcd.print(voltage);
+  lcd.setCursor(6,0);
+  lcd.print("V");
+  lcd.setCursor(9,0);
+  lcd.print("P:");
+  lcd.print(int(power));
+  lcd.print("W");
+  if(current<0)
+    lcd.setCursor(0,1);
+  else
+    lcd.setCursor(1,1);
+  lcd.print(current);
+  lcd.setCursor(6,1);
+  lcd.print("A"); 
+  lcd.setCursor(9,1);  
+  lcd.print("R:");
+ delay(1000);
 }
 
-void loop() {
-  //brightness();
+void initialize(){
+  lcd.setCursor(3, 0);
+  lcd.print("MoMoPaPrA");
+  lcd.setCursor(3, 1);
+  lcd.print("KxW MR JxK");
+  delay(2000);
+  lcd.clear();
+  lcd.setCursor(3, 0);
+  lcd.print("EZO Projekt");
+  lcd.setCursor(6, 1);
+  lcd.print("2022");
+  delay(2000);
+  }
+
+void setup() {
+  //set PIN 22 as PWM output to control screen brightness
+  pinMode(22, OUTPUT); 
+  // set screen diamiters
+  lcd.begin(16, 2);
   smooth_brightness();
-  //lcd.clear();
-  //lcd.print(analogRead(ADC));  
-  /*lcd.clear();
-  lcd.setCursor(1, 0);
-  lcd.print(jasnosc);
-  delay(2500);*/
+  initialize();
+}
+
+
+
+void loop() {
+  smooth_brightness();
+  measurements_display();
 }
