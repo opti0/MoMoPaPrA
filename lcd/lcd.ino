@@ -7,6 +7,8 @@
 #define ADC_CURR 27
 
 const int rs = 21, en = 20, d4 = 19, d5 = 18, d6 = 16, d7 = 17;
+int offset_curr;
+
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 void brightness(){
   int jasnosc;
@@ -45,7 +47,8 @@ float voltage_measure(){
 float current_measure(){
   
   float current;
-  current = ((analogRead(ADC_CURR)-2048)/4096);
+  //current = ((analogRead(ADC_CURR)-2048)/4096*3.3*6.6);
+  current = (analogRead(ADC_CURR)-offset_curr)*0.00134277;
   return current;
   }
 
@@ -81,6 +84,7 @@ void initialize(){
   lcd.print("MoMoPaPrA");
   lcd.setCursor(3, 1);
   lcd.print("KxW MR JxK");
+  offset_curr = analogRead(ADC_CURR);
   delay(2000);
   lcd.clear();
   lcd.setCursor(3, 0);
