@@ -35,16 +35,16 @@ void smooth_brightness(){
 float voltage_measure(){
   //digitalWrite(13, LOW); // Drive CS pin LOW
   float voltage;
-  //here will be some code to measure voltage
   int odczyt = analogRead(ADC_VOLT);
   voltage = (float)odczyt * 0.0053504; //znromalizowany wynik ADC 1/4096*3.3V*6,641 (odwrotna przekładnia)
+  if (voltage >20)
+    return 0;
   return voltage;
   }
   
 float current_measure(){
   
   float current;
-  //here will be some code to measure current
   current = ((analogRead(ADC_CURR)-2048)/4096);
   return current;
   }
@@ -76,7 +76,7 @@ void measurements_display(){
 }
 
 void initialize(){
-  //Serial.println("Zyje!!");
+  smooth_brightness();
   lcd.setCursor(3, 0);
   lcd.print("MoMoPaPrA");
   lcd.setCursor(3, 1);
@@ -101,13 +101,6 @@ void setup() {
   pinMode(13, OUTPUT);
   // set screen dimensions
   lcd.begin(16, 2);
-  //For now, set brightness to max for development purposes
-  digitalWrite(22, HIGH);
-  //spiInit();
-  ///
-  //Serial.begin(9600);
-  //while (!Serial);
-  //smooth_brightness();
   analogReadResolution(12);
   initialize();
 }
@@ -117,5 +110,4 @@ void setup() {
 void loop() {
   smooth_brightness();
   measurements_display();
-  //Serial.println("Zyje!!");
 }
