@@ -31,8 +31,7 @@ void brightness(){
 
 void smooth_brightness(){
   analogReadResolution(12);
-  while(1)
-    analogWrite(22, (analogRead(ADC_LDR)/16)-1); 
+  analogWrite(22, (analogRead(ADC_LDR)/16)-1); 
 }
 
 float voltage_measure(){
@@ -113,5 +112,6 @@ void setup() {
 
 
 void loop() {
+  multicore_launch_core1(smooth_brightness);
   measurements_display();
 }
