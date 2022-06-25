@@ -1,0 +1,8 @@
+# Git ignore list for Arduino IDE 2 Beta build directory
+lcd/build/
+
+#Ignores my Makefile since it is specific to my Manjaro setup
+lcd/Makefile
+
+#Arduino IDE 2 Beta logs
+undefined/
