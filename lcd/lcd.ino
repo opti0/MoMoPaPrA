@@ -1,5 +1,5 @@
 //#include <SPI.h>
-
+#include "pico/multicore.h"
 #include <LiquidCrystal.h>
 
 #define ADC_LDR 28
