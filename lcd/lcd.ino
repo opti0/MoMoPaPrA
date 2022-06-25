@@ -31,7 +31,8 @@ void brightness(){
 
 void smooth_brightness(){
   analogReadResolution(12);
-  analogWrite(22, (analogRead(ADC_LDR)/16)-1); 
+  while(1)
+    analogWrite(22, (analogRead(ADC_LDR)/16)-1); 
 }
 
 float voltage_measure(){
@@ -79,7 +80,7 @@ void measurements_display(){
 }
 
 void initialize(){
-  smooth_brightness();
+  multicore_launch_core1(smooth_brightness);
   lcd.setCursor(3, 0);
   lcd.print("MoMoPaPrA");
   lcd.setCursor(3, 1);
@@ -112,6 +113,5 @@ void setup() {
 
 
 void loop() {
-  smooth_brightness();
   measurements_display();
 }
