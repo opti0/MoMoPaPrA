@@ -1,4 +1,4 @@
-# Moduł Monitorowania Parametrów Pracy Akumulatora
-## Repozytorium z oprogramowaniem dla serca urządzenia - Raspberry Pi Pico
+# Moduł Monitorowania Parametrów Pracy Akumulatora - Battery Parameters Monitoring Module
 
-Podstawowa obsługa wyświetlania w lcd.ino jako sketch Arduino
+Code and schematisc for device.
+Code uses Arduino IDE and Raspberry Pi Pico. 
